@@ -303,7 +303,7 @@ $lessons = [
                 'japanese' => 'せんせい、さようなら', 
                 'english' => 'Goodbye!',
                 'chinese' => '再见！',
-                'tagalog' => 'Paalam!'
+                'tagalog' => 'paalam po, guro!'
             ]
         ]
     ],
