@@ -164,8 +164,8 @@ DB_USER=glassposi_akemi
 DB_PASSWORD=あなたのDBパスワード
 
 # Google APIs
-GOOGLE_TTS_API_KEY=AIzaSyCQu3osPBqwPwYMCoVH7iL56RO-Xq5Ko-0
-GEMINI_API_KEY=AIzaSyCQu3osPBqwPwYMCoVH7iL56RO-Xq5Ko-0
+GOOGLE_TTS_API_KEY=あなたのGoogle_TTS_APIキー
+GEMINI_API_KEY=あなたのGemini_APIキー
 
 # アプリケーション設定
 APP_ENV=production
