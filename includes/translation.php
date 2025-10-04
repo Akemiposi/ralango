@@ -2,7 +2,7 @@
 // includes/translation.php - 翻訳システム
 
 // Gemini API設定
-define('GEMINI_API_KEY', 'AIzaSyBqDGSnw5wMIcY_iWJ-WV-3JYCMVxf4c_c');
+define('GEMINI_API_KEY', $_ENV['GEMINI_API_KEY'] ?? '');
 define('GEMINI_API_URL', 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent');
 
 // 言語コードマッピング（翻訳専用）

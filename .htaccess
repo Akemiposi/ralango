@@ -2,9 +2,9 @@
 Options -Indexes
 
 # 環境変数設定
-SetEnv DB_PASSWORD "Akemi00rei"
-SetEnv GOOGLE_TTS_API_KEY "AIzaSyCE-4I3u6c6SKyu2Oa0n7bMu1eIU68BHsg"
-SetEnv GEMINI_API_KEY "AIzaSyCDgo1qYXwF5y9nmxcmL1Lr_PiAiLK9ig4"
+# SetEnv DB_PASSWORD "your_db_password_here"
+# SetEnv GOOGLE_TTS_API_KEY "your_api_key_here"
+# SetEnv GEMINI_API_KEY "your_api_key_here"
 
 # セキュリティヘッダー
 Header always set X-Content-Type-Options nosniff
