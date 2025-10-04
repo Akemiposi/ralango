@@ -3,10 +3,6 @@ Options -Indexes
 
 # .envファイルへのアクセスを拒否
 <Files ".env">
-    Require all denied
+    Order allow,deny
+    Deny from all
 </Files>
-
-# 機密ファイルへのアクセスを拒否
-<FilesMatch "\.(env|log|sql|bak|backup)$">
-    Require all denied
-</FilesMatch>
