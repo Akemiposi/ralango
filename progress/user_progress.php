@@ -686,8 +686,6 @@ $progress_percentage = round(($completed_count / 20) * 100, 1);
         <p class="progress-subtitle">
             <?php if ($is_admin_viewing): ?>
                 <?= h($user['child_name']) ?>さんの学習記録
-            <?php elseif ($is_admin && !$is_admin_viewing): ?>
-                <?= $current_language === 'ja' ? '全体の学習統計' : ($current_language === 'en' ? 'Overall Learning Statistics' : '整体学习统计') ?>
             <?php else: ?>
                 <?= sprintf(h(getTranslation('encouragement_message', $current_language, $translations)), h($user['child_name'])) ?>
             <?php endif; ?>
