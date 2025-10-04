@@ -1,0 +1,40 @@
+# セキュリティ設定
+Options -Indexes
+
+# .envファイルへのアクセスを拒否
+<Files ".env">
+    Order allow,deny
+    Deny from all
+</Files>
+
+# 機密ファイルへのアクセスを拒否
+<FilesMatch "\.(env|log|sql|bak|backup|config)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# セキュリティヘッダー
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+Header always set Referrer-Policy "same-origin"
+
+# PHPエラーを隠す
+php_flag display_errors Off
+php_flag log_errors On
+
+# ディレクトリブラウジングを無効化
+Options -Indexes
+
+# 重要なディレクトリへのアクセス制限
+<Directory "config">
+    Order allow,deny
+    Deny from all
+</Directory>
+
+# SQLファイルへのアクセス拒否
+<Files "*.sql">
+    Order allow,deny
+    Deny from all
+</Files>

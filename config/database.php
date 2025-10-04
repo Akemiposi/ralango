@@ -18,7 +18,7 @@ if ($is_xampp) {
     $host = $_ENV['DB_HOST'] ?? 'localhost';
     $dbname = $_ENV['DB_NAME'] ?? 'glassposi_nihongonote';
     $username = $_ENV['DB_USER'] ?? 'glassposi_akemi';
-    $password = $_ENV['DB_PASSWORD'] ?? '';
+    $password = $_ENV['DB_PASSWORD'] ?? 'Akemi00rei';
     
     // 環境変数が設定されていない場合のエラー
     if (empty($password) && !$is_xampp) {

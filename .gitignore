@@ -2,7 +2,6 @@
 .env
 .env.local
 .env.production
-.htaccess
 
 # Claude Code設定
 .claude/
