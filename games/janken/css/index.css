@@ -1,0 +1,500 @@
+/* フォントはシステム丸ゴシック体を使用 */
+html {
+    background-color: skyblue; /* 画面全体にスカイブルー */
+    padding: 3vh; /* 青い枠を復活 */
+    box-sizing: border-box;
+    height: 100%;
+    font-size: calc(0.8rem + 0.8vh); /* 基本フォントサイズを画面高さ基準に */
+  }
+ 
+ main  {
+    margin: 0;
+    padding: 2vh 0;
+    background-color: #fbecc4; /* 薄いクリーム色 */
+    background-image: radial-gradient(#faf3de 0.6vh, transparent 0.7vh);
+    background-size: 3vh 3vh; /* ドットの間隔 - 画面高さ基準 */
+    height: 100%;
+    box-sizing: border-box;
+    min-height: calc(100vh - 6vh); /* 青い枠分を引く */
+    font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  
+  h1 {
+    font-size: calc(2.7rem + 4.5vh); /* 10%小さく（90%に縮小） */
+    text-align: center;
+    margin: 1.8vh auto 2.7vh auto; /* 10%小さく */
+    font-weight: bold;
+    display: inline-block;
+    font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+    font-weight: 900;
+    font-style: normal;
+    text-shadow: 0.36vh 0.36vh 0.72vh rgba(0, 0, 0, 0.4); /* 10%小さく */
+    background: linear-gradient(45deg, #ff6b9d, #ffa500, #ff6b9d);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: 0.1em;
+    animation: titleGlow 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes titleGlow {
+    0% { text-shadow: 0.36vh 0.36vh 0.72vh rgba(0, 0, 0, 0.4), 0 0 1.8vh rgba(255, 107, 157, 0.3); }
+    100% { text-shadow: 0.36vh 0.36vh 0.72vh rgba(0, 0, 0, 0.4), 0 0 2.7vh rgba(255, 107, 157, 0.5); }
+  }
+
+  .score_display {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 3px solid #ff8fa3;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #ff8fa3;
+    z-index: 1001;
+    font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+  }
+
+  .score_display #current_score {
+    color: #f65875;
+    font-size: 2rem;
+    margin: 0 6px;
+  }
+ .title_box{
+  text-align: center;
+ }
+.title_img{
+    display: flex;
+    justify-content: center;
+}
+.title_img img{
+    width: 54%; /* 10%小さく（90%に縮小） */
+    height: auto;
+    filter: drop-shadow(0px 3.6px 3.6px rgba(0, 0, 0, 0.15)); /* 10%小さく */
+}
+.btn1 button {
+    background-color: #ff8fa3; 
+    border: none;
+    border-radius: 45px; /* 10%小さく */
+    padding: 22.5px 36px; /* 10%小さく */
+    font-size: 1.35rem; /* 10%小さく */
+    font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+    color: white;
+    box-shadow: 0 3.6px 7.2px rgba(0, 0, 0, 0.2); /* 10%小さく */
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn1 button:hover {
+    background-color: #f65875;
+    transform: scale(1.50);
+  }
+  
+/* ----janken_rich.html----- */
+
+
+.play_area {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 3vw;
+  flex-wrap: nowrap;
+  min-height: 40vh; /* 画面高さ基準 */
+}
+
+/* 既存のメディアクエリを削除 - 全てvhベースに統一 */
+.boy_wrap,
+.pc_wrap{
+  display: flex;
+ justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 45vw; /* 1.5倍に拡大 */
+  max-width: 450px; /* 1.5倍に拡大 */
+  min-width: 375px; /* 1.5倍に拡大 */
+  position: relative;
+}
+
+#boy_img, 
+#girl_img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.name{
+  font-size: calc(1.5rem + 2vh); /* 画面高さ基準 */
+  font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+}
+
+
+.judgement_wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 300px;
+  min-width: 300px;
+}
+#judgement {
+  text-align:center;
+  align-items: baseline;
+}
+.result{
+  font-size: calc(1.5rem + 2vh); /* 少し小さく */
+  font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+  font-weight: 900;
+  text-align: center;
+  font-style: normal;
+  text-shadow: 0.3vh 0.3vh 0.6vh rgba(0, 0, 0, 0.3);
+  height: 12vh; /* 画面高さ基準 */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 1vh;
+  line-height: 1.2; /* 行間を戻す */
+}
+
+.score_get {
+  color: #ff8fa3;
+  font-size: calc(1.2rem + 2vh); /* 画面高さ基準 */
+  font-weight: bold;
+  margin-top: 1vh;
+}
+.pon {
+  font-size: calc(2rem + 3vh); /* 画面高さ基準 */
+  vertical-align: sub;
+  letter-spacing: 0.2em;
+  margin-bottom: 1vh;
+  font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+}
+.call {
+  text-align: center;
+  margin: 2vh 0 1vh;
+  font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+  font-size: calc(0.9rem + 1vh); /* 画面高さ基準 */
+}
+
+#boy_hand_img,
+#girl_hand_img {
+  position: absolute;
+  top: 35%; /* 調整 */
+  left: 19%; /* 左側の手の位置 */
+  transform: translate(-50%, -50%);
+  width: 32%; /* 子供の絵に比例して拡大 */
+  max-width: 143px; /* 1.5倍に拡大（95px × 1.5） */
+  height: auto;
+  pointer-events: none;
+  display: none;
+}
+
+.btn_area {
+  display: flex;
+  justify-content: center;
+  gap: 2vh;        /* 画面高さ基準の間隔 */
+  margin-left: 0;   /* 左寄せ */
+  margin-right: auto;
+}
+
+.janken_btn {
+  width: calc(4rem + 4vh); /* 画面高さ基準 */
+  height: auto;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  border: 0.3vh solid #ff8fa3; /* ボタンらしい枠 */
+  border-radius: 50%; /* 完全な丸い枠 */
+  box-shadow: 0 0.4vh 0.8vh rgba(0, 0, 0, 0.2); /* 影を追加 */
+}
+
+.janken_btn:hover {
+  transform: scale(1.3);
+}
+.user_text, .pc_text {
+  text-align: center;
+  margin-top: 1vh;
+  font-size: calc(0.8rem + 1vh); /* 画面高さ基準 */
+  font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+  font-weight: 900;
+  color: #333;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 1vh 1.5vh;
+  border-radius: 1.5vh;
+  border: 0.2vh solid #ff8fa3;
+  box-shadow: 0 0.2vh 0.4vh rgba(0, 0, 0, 0.1);
+}
+.return_btn {
+  position: fixed;
+  top: 10px;
+  right: 70px;
+  z-index: 1002;
+}
+
+.return_button {
+  background-color: #ff8fa3; 
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 900;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.return_button:hover {
+  background-color: #f65875;
+  transform: scale(1.05);
+}
+
+/* スコアメッセージの固定位置 */
+#score_message {
+  text-align: center;
+  margin-top: 2vh;
+  min-height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* あそびかたボタン */
+.help_btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1002;
+}
+
+.help_button {
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 25px;
+  font-size: 1.3rem;
+  font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 900;
+  min-width: 100px;
+}
+
+.help_button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* ルール説明セクション */
+#rules {
+  margin: 30px 0;
+  padding: 20px;
+}
+
+.rules_container {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+
+.boy_rules, .girl_rules {
+  flex: 1;
+  min-width: 350px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 3px solid #ff8fa3;
+}
+
+.boy_rules h3, .girl_rules h3 {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 15px;
+  color: #ff8fa3;
+  font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+  font-weight: bold;
+}
+
+.rule_item {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 1.2rem;
+  font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+}
+
+.hand_icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.equals {
+  margin: 0 10px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #666;
+}
+
+.stone, .scissors, .paper {
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.stone { color: #8B4513; }
+.scissors { color: #4169E1; }
+.paper { color: #32CD32; }
+
+.win_rule {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 1.1rem;
+  font-family: "Hiragino Maru Gothic ProN", "ヒラギノ丸ゴ ProN", "Yu Gothic UI", "Meiryo UI", "MS PGothic", cursive, sans-serif;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.beats {
+  margin: 0 8px;
+  font-weight: bold;
+  color: #ff8fa3;
+}
+
+.reason {
+  margin-left: 8px;
+  font-weight: bold;
+  color: #666;
+}
+
+/* 小さい画面でのルール表示調整 */
+@media (max-height: 600px) {
+  .rules_container {
+    flex-direction: column;
+    gap: 2vh;
+  }
+  
+  .boy_rules, .girl_rules {
+    min-width: auto;
+    padding: 2vh;
+  }
+}
+
+/* レスポンシブ時の子供の画像はみ出し対応 */
+@media (max-width: 768px) or (max-height: 600px) {
+  html {
+    background-color: #fbecc4; /* レスポンシブ時は青枠削除 */
+    padding: 0;
+  }
+  
+  main {
+    background-color: #fbecc4; /* 薄いクリーム色 */
+  }
+  
+  .boy_wrap,
+  .pc_wrap {
+    width: 25vw; /* さらに縮小してiPhone横でも収まるように */
+    max-width: 200px;
+    min-width: 150px;
+  }
+  
+  #boy_hand_img,
+  #girl_hand_img {
+    max-width: 60px; /* 手札も一緒に縮小 */
+  }
+}
+
+/* スマホ縦画面専用 */
+@media (max-width: 480px) and (orientation: portrait) {
+  html {
+    font-size: calc(0.6rem + 1vw); /* 基本フォントサイズを小さく */
+    padding: 1vh;
+  }
+  
+  main {
+    padding: 1vh 0;
+  }
+  
+  h1 {
+    font-size: calc(1.5rem + 3vh); /* タイトルを大幅に縮小 */
+    margin: 1vh auto 1.5vh auto;
+  }
+  
+  .play_area {
+    flex-direction: column; /* 縦に並べる */
+    align-items: center;
+    gap: 1vh;
+    min-height: auto;
+  }
+  
+  .boy_wrap,
+  .pc_wrap {
+    width: 40vw;
+    max-width: 180px;
+    min-width: 120px;
+  }
+  
+  .judgement_wrap {
+    width: 80vw;
+    min-width: auto;
+    order: 1; /* 判定結果を上に */
+  }
+  
+  .boy_wrap {
+    order: 2; /* プレイヤーを中央に */
+  }
+  
+  .pc_wrap {
+    order: 3; /* CPUを下に */
+  }
+  
+  .result {
+    height: 8vh;
+    font-size: calc(1rem + 1.5vh);
+  }
+  
+  .pon {
+    font-size: calc(1.5rem + 2vh);
+  }
+  
+  .name {
+    font-size: calc(1rem + 1.5vh);
+  }
+  
+  .btn_area {
+    padding: 1vh 2vw;
+  }
+  
+  .btn_area button {
+    font-size: calc(0.8rem + 1vh);
+    padding: 1vh 2vw;
+    margin: 0.5vh;
+  }
+  
+  .score_display {
+    font-size: calc(0.8rem + 1vh);
+    padding: 1vh;
+  }
+  
+  #boy_hand_img,
+  #girl_hand_img {
+    max-width: 45px;
+    top: 30%;
+  }
+}

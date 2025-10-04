@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kanacard</title>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="score_display">
+        <span class="score_label">点数:</span>
+        <span id="current_score">0</span>
+        <span class="score_unit">点</span>
+      </div>
+      <div class="return_btn">
+        <a href="../../index.php" class="return_button">メニュー</a>
+      </div>
+      <nav class="menu_buttons">
+        <button class="menu_btn" data-group="a">あ</button>
+        <button class="menu_btn" data-group="ka">か</button>
+        <button class="menu_btn" data-group="sa">さ</button>
+        <button class="menu_btn" data-group="ta">た</button>
+        <button class="menu_btn" data-group="na">な</button>
+        <button class="menu_btn" data-group="ha">は</button>
+        <button class="menu_btn" data-group="ma">ま</button>
+        <button class="menu_btn" data-group="ya">や</button>
+        <button class="menu_btn" data-group="ra">ら</button>
+        <button class="menu_btn" data-group="wa">わ</button>
+        <button class="menu_btn" data-group="all">ランダム</button>
+      </nav>
+    </header>
+    <main>
+      <section id="title">
+        <div class="title_wrap">
+          <h1>ひらがな</h1>
+        </div>
+      </section>
+
+      <section id="play">
+        <div id="play_area">
+          <div class="q_card">
+            <div class="card_wrap">
+              <img src="img/img_e/asagao.png" alt="あさがおカード" />
+            </div>
+
+            <div class="quiz">
+              <p>これはなんですか？</p>
+              <div class="question_word">？○○</div>
+              <!-- 追加：ここに「？さぎ」などが表示される -->
+            </div>
+
+            <div class="select">
+              <div class="select_area">
+                <ul class="select_choices"></ul>
+              </div>
+            </div>
+          </div>
+          <div id="judge_message"></div>
+        </div>
+      </section>
+
+      <!-- ルール説明エリア -->
+      <section id="rules">
+        <button class="close_btn" id="close_rules">×</button>
+        <div class="rules_container">
+          <div class="kana_rules">
+            <h3>あそびかた</h3>
+            <div class="rule_item">
+              <span class="step_number">1</span>
+              <span class="rule_text">えをみて、なんというなまえかかんがえよう</span>
+            </div>
+            <div class="rule_item">
+              <span class="step_number">2</span>
+              <span class="rule_text">「？」のところのひらがなをしたのかーどからえらぼう</span>
+            </div>
+            <div class="rule_item">
+              <span class="step_number">3</span>
+              <span class="rule_text">はじめてのせいかいで1てんもらえるよ！</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div class="help_btn">
+        <button id="help_button" class="help_button">あそびかた</button>
+    </div>
+
+    <footer></footer>
+
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <script>
+        // jQuery読み込み確認
+        if (typeof jQuery === 'undefined') {
+            console.error('jQuery failed to load from local file!');
+        } else {
+            console.log('jQuery loaded successfully from local file:', jQuery.fn.jquery);
+        }
+    </script>
+    <script src="js/index.js"></script>
+  </body>
+</html>

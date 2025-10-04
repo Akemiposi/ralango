@@ -1,0 +1,566 @@
+/* assets/css/lesson.css */
+/* レッスン画面専用スタイル */
+
+.lesson-container {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    margin-bottom: 20px;
+    animation: fadeIn 0.5s ease;
+}
+
+.lesson-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.lesson-title {
+    font-size: 2.5em;
+    color: #4CAF50;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.lesson-subtitle {
+    font-size: 3em;
+    color: #666;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+/* タブナビゲーション */
+.lesson-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    background: #f5f5f5;
+    border-radius: 15px;
+    padding: 5px;
+    position: relative;
+    overflow: hidden;
+}
+
+.lesson-tabs::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: calc(33.333% - 5px);
+    height: calc(100% - 10px);
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.lesson-tabs[data-active="1"]::before { transform: translateX(0); }
+.lesson-tabs[data-active="2"]::before { transform: translateX(100%); }
+.lesson-tabs[data-active="3"]::before { transform: translateX(200%); }
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    color: #666;
+    position: relative;
+    z-index: 2;
+    border-radius: 10px;
+}
+
+.tab.active {
+    color: #4CAF50;
+}
+
+.tab:hover:not(.active) {
+    color: #4CAF50;
+    background: rgba(255,255,255,0.5);
+}
+
+/* レッスンコンテンツ */
+.lesson-content {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    min-height: 400px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideInUp 0.5s ease forwards;
+}
+
+.lesson-content.hidden {
+    display: none;
+}
+
+/* ビデオエリア */
+.video-area {
+    flex: 1;
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2em;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.video-placeholder:hover {
+    transform: scale(1.02);
+}
+
+.video-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    transition: opacity 0.3s ease;
+}
+
+.video-placeholder:hover::before {
+    opacity: 0.5;
+}
+
+.play-button {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+    border: 3px solid rgba(255,255,255,0.8);
+}
+
+.play-button:hover {
+    transform: scale(1.1);
+    background: white;
+    border-color: white;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+}
+
+.play-button::after {
+    content: '▶';
+    color: #667eea;
+    font-size: 2em;
+    margin-left: 5px;
+}
+
+/* テキストエリア */
+.text-area {
+    flex: 1;
+    padding: 20px;
+}
+
+.text-section {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #4CAF50;
+    transition: all 0.3s ease;
+}
+
+.text-section:hover {
+    background: #f0f8f0;
+    transform: translateX(5px);
+    box-shadow: 0 4px 15px rgba(76,175,80,0.1);
+}
+
+.text-label {
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.text-label::before {
+    content: '💬';
+    font-size: 1.2em;
+}
+
+.japanese-text {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    font-weight: 500;
+    font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+}
+
+.translation-text {
+    color: #666;
+    font-size: 1.1em;
+    line-height: 1.4;
+    font-style: italic;
+}
+
+.pronunciation-guide {
+    font-size: 0.9em;
+    color: #999;
+    margin-bottom: 10px;
+    font-style: italic;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.pronunciation-guide span {
+    padding: 2px 8px;
+    background: linear-gradient(45deg, #e8f5e9, #f1f8e9);
+    border-radius: 12px;
+    font-size: 0.8em;
+    color: #4CAF50;
+    font-weight: 500;
+    border: 1px solid rgba(76,175,80,0.2);
+}
+
+/* ボタン */
+.next-button {
+    background: linear-gradient(45deg, #ff9800, #ff5722);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px auto;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255,152,0,0.3);
+}
+
+.next-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255,152,0,0.4);
+}
+
+.next-button::after {
+    content: '→';
+    font-size: 1.2em;
+    transition: transform 0.3s ease;
+}
+
+.next-button:hover::after {
+    transform: translateX(3px);
+}
+
+.tts-button {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin: 0;
+    transition: all 0.3s ease;
+    font-size: 0.9em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 15px rgba(76,175,80,0.3);
+}
+
+.tts-button:hover {
+    background: linear-gradient(45deg, #45a049, #388e3c);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 15px rgba(76,175,80,0.4);
+}
+
+.tts-button::before {
+    content: '🔊';
+    font-size: 1.1em;
+}
+
+/* バッジモーダル */
+.badge-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.badge-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    animation: bounce 0.6s ease;
+}
+
+.badge-title {
+    font-size: 2em;
+    color: #4CAF50;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.badge-icon {
+    width: 120px;
+    height: 120px;
+    margin: 20px auto;
+    position: relative;
+    animation: sparkle 2s ease-in-out;
+}
+
+.badge-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+.badge-ribbon {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: #333;
+    padding: 8px 20px;
+    border-radius: 15px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 0.8em;
+    box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+/* アニメーション */
+@keyframes sparkle {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg);
+        box-shadow: 0 15px 35px rgba(255,215,0,0.4);
+    }
+    25% {
+        transform: scale(1.1) rotate(90deg);
+        box-shadow: 0 20px 45px rgba(255,215,0,0.6);
+    }
+    50% { 
+        transform: scale(1.05) rotate(180deg);
+        box-shadow: 0 25px 55px rgba(255,215,0,0.8);
+    }
+    75% {
+        transform: scale(1.1) rotate(270deg);
+        box-shadow: 0 20px 45px rgba(255,215,0,0.6);
+    }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 完了状態のエフェクト */
+.lesson-content.completed::after {
+    content: '✨';
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 2em;
+    animation: bounce 2s infinite;
+}
+
+/* 進捗インジケーター */
+.lesson-progress-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    border-radius: 50px;
+    padding: 10px 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 50;
+}
+
+.progress-dots {
+    display: flex;
+    gap: 5px;
+}
+
+.progress-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.progress-dot.active {
+    background: #4CAF50;
+    transform: scale(1.2);
+}
+
+.progress-dot.completed {
+    background: #4CAF50;
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .lesson-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .video-area, .text-area {
+        flex: none;
+        width: 100%;
+    }
+    
+    .video-placeholder {
+        height: 200px;
+    }
+    
+    .lesson-title {
+        font-size: 2em;
+    }
+    
+    .lesson-subtitle {
+        font-size: 2.5em;
+    }
+    
+    .japanese-text {
+        font-size: 1.3em;
+    }
+    
+    .play-button {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .play-button::after {
+        font-size: 1.5em;
+    }
+    
+    .lesson-progress-indicator {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin: 20px auto;
+    }
+}
+
+@media (max-width: 480px) {
+    .lesson-container {
+        padding: 20px;
+        margin: 10px;
+        border-radius: 15px;
+    }
+    
+    .lesson-tabs {
+        flex-direction: column;
+        gap: 5px;
+        padding: 10px;
+    }
+    
+    .lesson-tabs::before {
+        display: none;
+    }
+    
+    .tab {
+        padding: 12px;
+        font-size: 0.9em;
+        border-radius: 8px;
+    }
+    
+    .tab.active {
+        background: white;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .badge-content {
+        padding: 30px 20px;
+    }
+    
+    .badge-title {
+        font-size: 1.6em;
+    }
+    
+    .badge-icon {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* アクセシビリティ */
+@media (prefers-reduced-motion: reduce) {
+    .lesson-content,
+    .badge-icon,
+    .play-button,
+    .next-button {
+        animation: none;
+    }
+    
+    .tab,
+    .text-section,
+    .tts-button {
+        transition: none;
+    }
+}
+
+/* 高コントラストモード */
+@media (prefers-contrast: high) {
+    .text-section {
+        border-left-width: 6px;
+        border-left-color: #000;
+    }
+    
+    .japanese-text {
+        color: #000;
+        font-weight: 600;
+    }
+    
+    .play-button {
+        border: 3px solid #000;
+    }
+}

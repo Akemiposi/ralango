@@ -1,0 +1,61 @@
+# 環境設定ファイル
+.env
+.env.local
+.env.production
+
+# Claude Code設定
+.claude/
+CLAUDE.md
+
+# 機密情報を含む可能性のあるファイル
+config/database_live.php
+config/api_config_live.php
+
+# キャッシュディレクトリ
+assets/audio/cache/*
+!assets/audio/cache/.gitkeep
+
+# ログファイル
+*.log
+logs/
+error_log
+
+# 一時ファイル
+tmp/
+temp/
+.tmp
+
+# システムファイル
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# エディタファイル
+.vscode/
+.idea/
+*.sublime-*
+
+# 依存関係（もしある場合）
+vendor/
+node_modules/
+
+# 個人設定ファイル
+config/personal_config.php
+
+# デバッグファイル
+debug.php
+test.php
+
+# バックアップファイル
+*.bak
+*.backup
+
+# アップロードされたファイル
+uploads/
+user_uploads/
+
+# SQLダンプファイル
+*.sql
+*.dump

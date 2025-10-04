@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Sawarabi+Gothic&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <title>じゃんけんしようよ</title>
+</head>
+<body>
+<main>
+    <div class="score_display">
+        <span class="score_label">点数:</span>
+        <span id="current_score">0</span>
+        <span class="score_unit">点</span>
+    </div>
+    <div class="return_btn">
+        <a href="../index.php" class="return_button">メニュー</a>
+    </div>
+<section id="title">
+    <div class="title_box">
+    <h1 class="arc-text">じゃんけんしようよ</h1>
+  </div>
+    <div class="title_img">
+        <img src="img_janken/boyandgirl_jumping.png" alt="じゃんけんしようよ">
+    </div>
+</section>
+<section id="btn">
+<div class="btn1">
+    <button onclick="location.href='janken_rich.html'">せーの</button>
+
+</div>
+</section>
+</main>
+<script>
+// 点数をローカルストレージから読み込んで表示
+function loadScore() {
+    const jankenScore = localStorage.getItem('janken_score');
+    const kanacardScore = localStorage.getItem('kanacard_score');
+    
+    console.log('じゃんけんスコア:', jankenScore);
+    console.log('かなカードスコア:', kanacardScore);
+    
+    const totalScore = (jankenScore ? parseInt(jankenScore) : 0) + (kanacardScore ? parseInt(kanacardScore) : 0);
+    
+    console.log('合計スコア:', totalScore);
+    
+    const scoreElement = document.getElementById('current_score');
+    if (scoreElement) {
+        scoreElement.textContent = totalScore;
+        console.log('スコア表示更新完了');
+    } else {
+        console.log('スコア要素が見つかりません');
+    }
+}
+
+// ページ読み込み時に点数を表示
+document.addEventListener('DOMContentLoaded', loadScore);
+</script>
+</body>
+</html>

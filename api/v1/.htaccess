@@ -1,0 +1,44 @@
+# API専用 .htaccess
+# セキュリティとCORS設定
+
+# ===== CORS設定 =====
+<IfModule mod_headers.c>
+    # プリフライトリクエスト対応
+    Header always set Access-Control-Allow-Origin "*"
+    Header always set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
+    Header always set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With, X-API-Key"
+    Header always set Access-Control-Max-Age "86400"
+</IfModule>
+
+# ===== JSON Content-Type強制 =====
+<IfModule mod_mime.c>
+    AddType application/json .json
+</IfModule>
+
+# ===== セキュリティ =====
+# 不正なPHPファイルの実行防止
+<Files "*.php">
+    <RequireAll>
+        Require all granted
+    </RequireAll>
+</Files>
+
+# ===== レート制限（必要に応じて） =====
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     # 同一IPから1分間に60リクエストまで
+#     RewriteMap requests prg:/path/to/rate_limiter.sh
+#     RewriteCond ${requests:%{REMOTE_ADDR}} >60
+#     RewriteRule .* - [R=429,L]
+# </IfModule>
+
+# ===== キャッシュ無効（APIレスポンス） =====
+<IfModule mod_expires.c>
+    ExpiresActive Off
+</IfModule>
+
+<IfModule mod_headers.c>
+    Header always set Cache-Control "no-cache, no-store, must-revalidate"
+    Header always set Pragma "no-cache"
+    Header always set Expires "0"
+</IfModule>

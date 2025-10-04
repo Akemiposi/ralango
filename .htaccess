@@ -1,0 +1,23 @@
+# セキュリティ設定
+Options -Indexes
+
+# 環境変数設定
+SetEnv DB_PASSWORD "Akemi00rei"
+SetEnv GOOGLE_TTS_API_KEY "AIzaSyCE-4I3u6c6SKyu2Oa0n7bMu1eIU68BHsg"
+SetEnv GEMINI_API_KEY "AIzaSyCDgo1qYXwF5y9nmxcmL1Lr_PiAiLK9ig4"
+
+# セキュリティヘッダー
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+
+# 機密ファイルへのアクセス拒否
+<Files ".env*">
+    Order allow,deny
+    Deny from all
+</Files>
+
+<Files "*.log">
+    Order allow,deny
+    Deny from all
+</Files>

@@ -1,0 +1,1920 @@
+/* assets/css/style.css */
+/* nihongonote メインスタイルシート - 性別対応パステル版 */
+
+/* ===== CSS VARIABLES ===== */
+:root {
+    /* 共通の明るい色合い */
+    --base-hue: 150; /* 明るい緑系 */
+    --accent-hue: 180; /* 明るい青緑系 */
+    --secondary-hue: 120; /* 明るい緑系 */
+    
+    /* カラーパレット - 明るい共通色 */
+    --primary-color: hsl(var(--base-hue), 50%, 65%);
+    --primary-light: hsl(var(--base-hue), 40%, 80%);
+    --primary-dark: hsl(var(--base-hue), 60%, 50%);
+    --accent-color: hsl(var(--accent-hue), 55%, 60%);
+    --secondary-color: hsl(var(--secondary-hue), 45%, 70%);
+    --background: transparent;
+    --card-background: transparent;
+}
+
+/* 全ページ共通の言語切り替えタブ */
+.language-tabs-global {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.language-tabs-global .language-tab {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.language-tabs-global .language-tab:hover {
+    background: rgba(255, 255, 255, 1);
+    border-color: #FF6B35;
+    color: #FF6B35;
+}
+
+.language-tabs-global .language-tab.active {
+    background: #FF6B35;
+    border-color: #FF6B35;
+    color: white;
+}
+
+/* 中文フォント統一と斜体除去 */
+[data-current-lang="zh"] *, 
+[data-current-lang="zh"], 
+[data-current-lang="zh"] .language-tab,
+[data-current-lang="zh"] .box-title {
+    font-family: 'PingFang SC', 'Microsoft YaHei', 'SimHei', sans-serif !important;
+    font-style: normal !important;
+}
+
+/* 英語フォントを通常フォントに変更 */
+[data-current-lang="en"] * {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif !important;
+}
+
+/* ===== BASE STYLES ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
+    background: transparent;
+    background-image: url('../images/bg_top.png'), url('../images/bg_bottom.png');
+    background-position: center top, center bottom;
+    background-repeat: no-repeat, no-repeat;
+    background-size: 100% auto, 100% auto;
+    min-height: 100vh;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+}
+
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-top: 220px;
+    position: relative;
+    z-index: 200;
+}
+
+/* ===== BUTTONS ===== */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1em;
+}
+
+.btn-primary {
+    width: 100%;
+    background: linear-gradient(45deg, #FF6B6B, #FF8E53);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    background: linear-gradient(45deg, #FF5252, #FF7043);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* ===== FORMS ===== */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.95em;
+}
+
+.form-input, .form-select {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 1em;
+    transition: all 0.3s ease;
+    background: #fafafa;
+}
+
+.form-input:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    background: white;
+    box-shadow: 0 0 10px hsla(var(--accent-hue), 45%, 65%, 0.2);
+}
+
+/* ===== MESSAGES ===== */
+.error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #ffcdd2;
+}
+
+.success-message {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    text-align: center;
+    border: 1px solid #c8e6c9;
+}
+
+/* ===== AUTH STYLES ===== */
+.auth-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+}
+
+.auth-title {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+/* ===== HEADER STYLES ===== */
+/* 上部背景画像 */
+.bg-top-global {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 200px;
+    object-fit: cover;
+    z-index: 100;
+}
+
+/* 中央ロゴ */
+.top-logo-center {
+    position: fixed;
+    top: 140px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.top-logo-center.scrolled {
+    top: 20px;
+    left: 20px;
+    right: auto;
+    transform: none;
+}
+
+.top-logo-image {
+    width: 25vw;
+    height: auto;
+    max-width: 300px;
+    transition: all 0.3s ease;
+    object-fit: contain;
+    display: block;
+}
+
+.top-logo-image.scrolled {
+    width: 8vw;
+    max-width: 80px;
+    object-fit: contain;
+    display: block;
+}
+
+/* 右上のメニューボタン */
+.menu-button-top {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9998;
+}
+
+.menu-return-btn {
+    background: #FF6B35;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.menu-return-btn:hover {
+    background: #E85A2B;
+    transform: translateY(-2px);
+}
+
+/* 子供情報エリア内の小さなメニューボタン */
+.menu-return-btn-small {
+    background: #FF6B35;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.8em;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.menu-return-btn-small:hover {
+    background: #E85A2B;
+    transform: translateY(-1px);
+}
+
+/* 右上の子供の情報 */
+.child-info-top {
+    position: fixed;
+    top: 70px;
+    right: 20px;
+    z-index: 9998;
+}
+
+.user-details-top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 12px 20px;
+    border-radius: 25px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+}
+
+.user-info-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 0.9em;
+}
+
+.logout-row {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    align-items: center;
+}
+
+.logout-button {
+    background: #ff6b6b;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 0.8em;
+    transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+    background: #ff5252;
+}
+
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+.logo-image {
+    height: 120px;
+    width: auto;
+    max-width: 400px;
+    border-radius: 12px;
+    object-fit: contain;
+}
+
+.logo-icon {
+    width: 65px;
+    height: 65px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.8em;
+}
+
+.logo-text {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.title-image {
+    width: 40%;
+    max-width: 1200px;
+    height: auto;
+    filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+    object-fit: contain;
+}
+
+.logo-text .subtitle {
+    font-size: 1.3em;
+    color: #666;
+}
+
+.header-user-info {
+    position: absolute;
+    right: 20px;
+    top: calc(40% - 35px);
+    transform: translateY(-50%);
+}
+
+.user-details {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(135deg, rgba(255, 242, 230, 0.5), rgba(255, 230, 242, 0.5));
+    padding: 12px 20px;
+    border-radius: 25px;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+    border: 2px solid rgba(255, 179, 217, 0.5);
+}
+
+.user-name, .user-lang {
+    color: #666;
+    font-weight: 600;
+    font-size: 1.2em;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 15px;
+    white-space: nowrap;
+}
+
+.logout-button {
+    background: linear-gradient(135deg, #ff8c00, #ff6347);
+    color: white;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 18px;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-align: center;
+    box-shadow: 0 3px 12px rgba(255, 140, 0, 0.3);
+    white-space: nowrap;
+}
+
+.logout-button:hover {
+    background: linear-gradient(135deg, #ff7700, #ff4500);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(255, 140, 0, 0.4);
+}
+
+.main-nav {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-nav .nav-link:nth-child(2),
+.main-nav .nav-link:nth-child(3) {
+    margin: 0 7.5px;
+}
+
+.nav-link {
+    color: #666;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 20px 48px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    font-size: 1.2em;
+    border: 2px solid var(--primary-light);
+    background: hsla(var(--accent-hue), 45%, 65%, 0.08);
+    white-space: nowrap;
+    width: 237px;
+    text-align: center;
+    display: inline-block;
+}
+
+.nav-link:hover {
+    color: var(--accent-color);
+    background: hsla(var(--accent-hue), 45%, 65%, 0.25);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px hsla(var(--base-hue), 40%, 70%, 0.2);
+}
+
+.nav-link.active {
+    color: white;
+    background: var(--primary-color);
+    box-shadow: 0 6px 20px hsla(var(--base-hue), 40%, 70%, 0.4);
+    border-color: var(--primary-dark);
+}
+
+
+.user-info span {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    background: var(--primary-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-dark);
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.logout-btn {
+    background: #ff5722;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background 0.3s ease;
+    text-decoration: none;
+}
+
+.logout-btn:hover {
+    background: #e64a19;
+}
+
+/* ===== LESSON STYLES ===== */
+.lesson-container {
+    background: var(--card-background);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.lesson-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.lesson-title {
+    font-size: 2.5em;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.lesson-subtitle {
+    font-size: 3em;
+    color: #666;
+    font-weight: 300;
+    margin-bottom: 10px;
+}
+
+.lesson-tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+    background: #f5f5f5;
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.tab {
+    flex: 1;
+    text-align: center;
+    padding: 15px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    color: #666;
+}
+
+.tab.active {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    color: #4CAF50;
+}
+
+.tab:hover:not(.active) {
+    background: rgba(255,255,255,0.5);
+}
+
+.lesson-content {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+    min-height: 400px;
+}
+
+.lesson-content.hidden {
+    display: none;
+}
+
+.video-area {
+    flex: 1;
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-placeholder {
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2em;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.video-placeholder::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    transition: opacity 0.3s ease;
+}
+
+.video-placeholder:hover::before {
+    opacity: 0.5;
+}
+
+.play-button {
+    width: 80px;
+    height: 80px;
+    background: rgba(255,255,255,0.9);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.play-button:hover {
+    transform: scale(1.1);
+    background: white;
+}
+
+.play-button::after {
+    content: '▶';
+    color: #667eea;
+    font-size: 2em;
+    margin-left: 5px;
+}
+
+.text-area {
+    flex: 1;
+    padding: 20px;
+}
+
+.text-section {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border-left: 4px solid #4CAF50;
+}
+
+.text-label {
+    font-weight: bold;
+    color: #4CAF50;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+.japanese-text {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.4;
+    font-weight: 500;
+}
+
+.translation-text {
+    color: #666;
+    font-size: 1.1em;
+    line-height: 1.4;
+}
+
+.pronunciation-guide {
+    font-size: 0.9em;
+    color: #999;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+
+.pronunciation-guide span {
+    margin-right: 10px;
+    padding: 2px 6px;
+    background: #e8f5e9;
+    border-radius: 4px;
+}
+
+.next-button {
+    background: #FF6B35;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 20px auto;
+    transition: all 0.3s ease;
+}
+
+.next-button:hover {
+    background: #E85A2B;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255,107,53,0.4);
+}
+
+.next-button::after {
+    content: '→';
+    font-size: 1.2em;
+}
+
+.tts-button {
+    background: #2196F3;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+    font-size: 0.9em;
+}
+
+.tts-button:hover {
+    background: #1976D2;
+}
+
+/* ===== BADGE MODAL ===== */
+.badge-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.badge-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.badge-title {
+    font-size: 2em;
+    color: #4CAF50;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* ダッシュボードアイコン統一設定 */
+.badge-icon,
+.progress-icon,
+.lesson-icon,
+.user-icon,
+.game-icon,
+.school-icon {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.badge-icon img,
+.progress-icon img,
+.lesson-icon img,
+.user-icon img,
+.game-icon img,
+.school-icon img {
+    width: 336px;
+    height: 336px;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+@keyframes badgeFloat {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-10px) rotate(3deg); }
+}
+
+
+
+.badge-ribbon {
+    background: #FFD700;
+    color: #333;
+    padding: 8px 20px;
+    border-radius: 15px;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 0.8em;
+    box-shadow: 0 4px 15px rgba(255,215,0,0.3);
+}
+
+/* ===== DASHBOARD STYLES ===== */
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 40px 20px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(76,175,80,0.3);
+}
+
+.welcome-title {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.welcome-subtitle {
+    font-size: 1.2em;
+    opacity: 0.9;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.dashboard-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    padding: 20px 20px 0;
+}
+
+.card-title {
+    color: #4CAF50;
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+/* ===== CURRICULUM STYLES ===== */
+.curriculum-container {
+    max-width: 100vw;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.curriculum-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.curriculum-title {
+    font-size: 3em;
+    color: #4CAF50;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.curriculum-subtitle {
+    font-size: 1.2em;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.lessons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.lesson-card {
+    background: white;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.lesson-card:hover:not(.locked) {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes sparkle {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg);
+    }
+    25% {
+        transform: scale(1.1) rotate(90deg);
+    }
+    50% { 
+        transform: scale(1.05) rotate(180deg);
+    }
+    75% {
+        transform: scale(1.1) rotate(270deg);
+    }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideInUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* ===== UTILITIES ===== */
+.hidden {
+    display: none !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .lesson-content {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .video-area, .text-area {
+        flex: none;
+        width: 100%;
+    }
+    
+    .lesson-title {
+        font-size: 2em;
+    }
+    
+    .lesson-subtitle {
+        font-size: 2.5em;
+    }
+    
+    .auth-container {
+        margin: 20px auto;
+        padding: 30px 20px;
+    }
+    
+    header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .main-nav {
+        display: none;
+    }
+    
+    .user-info {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .lessons-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .lesson-tabs {
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .tab {
+        padding: 12px;
+        font-size: 0.9em;
+    }
+    
+    .video-placeholder {
+        height: 200px;
+    }
+    
+    .japanese-text {
+        font-size: 1.3em;
+    }
+    
+    .play-button {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .play-button::after {
+        font-size: 1.5em;
+    }
+    
+    .curriculum-title {
+        font-size: 2em;
+    }
+}
+
+/* ===== CURRICULUM SPECIFIC STYLES ===== */
+.curriculum-container {
+    position: relative;
+}
+
+/* ===== SUB-LESSON STYLES ===== */
+.sub-lessons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.sub-lesson-item {
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.sub-lesson-item:hover {
+    border-color: #4CAF50;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.2);
+}
+
+.sub-lesson-item.completed {
+    border-color: #4CAF50;
+    background-color: #f8fff8;
+}
+
+.sub-lesson-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    width: 100%;
+}
+
+.sub-lesson-number {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.9em;
+    flex-shrink: 0;
+}
+
+.sub-lesson-item.completed .sub-lesson-number {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+}
+
+.sub-lesson-content {
+    flex: 1;
+}
+
+.sub-lesson-title {
+    font-weight: bold;
+    font-size: 0.95em;
+    margin-bottom: 4px;
+    color: #333;
+}
+
+.sub-lesson-japanese {
+    font-size: 0.9em;
+    color: #666;
+    font-style: italic;
+}
+
+.sub-lesson-item.completed .sub-lesson-title {
+    color: #4CAF50;
+}
+
+.sub-lesson-item.completed .sub-lesson-japanese {
+    color: #2e7d32;
+}
+
+/* Mobile responsive for sub-lessons */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px 25px;
+    }
+    
+    .main-nav {
+        position: relative;
+        left: auto;
+        transform: none;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 0;
+    }
+    
+    .main-nav .nav-link:nth-child(2),
+    .main-nav .nav-link:nth-child(3) {
+        margin: 0;
+    }
+    
+    .nav-link {
+        width: 180px;
+        padding: 16px 30px;
+        font-size: 1.1em;
+    }
+    
+    .sub-lesson-btn {
+        padding: 8px;
+        gap: 10px;
+    }
+    
+    .sub-lesson-number {
+        width: 35px;
+        height: 35px;
+        font-size: 0.8em;
+    }
+    
+    .sub-lesson-title {
+        font-size: 0.9em;
+    }
+    
+    .sub-lesson-japanese {
+        font-size: 0.85em;
+    }
+}
+
+
+.curriculum-title {
+    font-size: 3em;
+    color: #FF6B9D;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.curriculum-subtitle {
+    font-size: 1.3em;
+    color: #666;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.lessons-grid {
+    display: flex;
+    gap: 30px;
+    padding: 30px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+    height: 400px;
+    align-items: center;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+}
+
+/* カスタムスクロールバー */
+.lessons-grid::-webkit-scrollbar {
+    height: 12px;
+}
+
+.lessons-grid::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.lessons-grid::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #4CAF50, #45a049);
+    border-radius: 10px;
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+}
+
+.lessons-grid::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #45a049, #3d8b40);
+}
+
+@keyframes rotateCircle {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.lesson-card {
+    flex: 0 0 300px;
+    width: 300px;
+    height: 300px;
+    background: linear-gradient(135deg, #fff, #f0f8ff);
+    border-radius: 50%;
+    border: 6px solid #4CAF50;
+    box-shadow: 0 15px 60px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.6s ease;
+    padding: 30px;
+    position: relative;
+}
+
+/* 横スクロールレイアウト用 - 円形配置なし */
+
+/* スクロールヒント */
+.lessons-grid::after {
+    content: '→';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    color: #4CAF50;
+    opacity: 0.7;
+    animation: scrollHint 2s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes scrollHint {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50% { transform: translateY(-50%) translateX(10px); }
+}
+
+@keyframes counterRotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(-360deg); }
+}
+
+/* 横スクロール用ホバー効果 */
+.lesson-card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 20px 80px rgba(76, 175, 80, 0.6);
+    border-color: #FF6B9D;
+    border-width: 8px;
+    z-index: 10;
+}
+
+/* カードの装飾 */
+.lesson-card::before {
+    content: '✨';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 1.5em;
+    opacity: 0.7;
+}
+
+.lesson-number {
+    background: linear-gradient(45deg, #FF6B9D, #4ECDC4);
+    color: white;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.5em;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    margin-bottom: 15px;
+}
+
+/* 円形カード内の要素調整 */
+.lesson-card .lesson-content {
+    width: 100%;
+    overflow: hidden;
+}
+
+.lesson-card .lesson-title {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 12px 0;
+    line-height: 1.3;
+    color: #333;
+}
+
+.lesson-card .lesson-description {
+    display: none;
+    font-size: 0.9em;
+    color: #666;
+    margin: 8px 0;
+    line-height: 1.4;
+}
+
+.lesson-card .lesson-steps {
+    display: none;
+}
+
+/* ホバー時に説明を表示 */
+.lesson-card:hover .lesson-description {
+    display: block;
+}
+
+.lesson-card .lesson-progress {
+    margin-top: 5px;
+}
+
+.lesson-card .lesson-progress .steps {
+    display: none;
+}
+
+.lesson-card .progress-bar {
+    width: 90%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin: 12px auto;
+}
+
+.lesson-card .lesson-actions {
+    position: absolute;
+    bottom: 20px;
+    width: 85%;
+    left: 7.5%;
+}
+
+.lesson-card .lesson-btn {
+    padding: 12px 18px;
+    font-size: 1.1em;
+    border-radius: 15px;
+    width: 100%;
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.lesson-title {
+    font-size: 0.8em;
+    color: #4A90E2;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    line-height: 1.2;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lesson-description {
+    color: #666;
+    margin-bottom: 15px;
+    line-height: 1.6;
+    font-size: 1em;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 10px;
+    border-radius: 15px;
+    border: 2px dashed #FFD700;
+}
+
+.lesson-steps {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 20px !important;
+    border: 3px solid #FF6B9D !important;
+    position: relative;
+}
+
+.lesson-steps::before {
+    content: '📚';
+    position: absolute;
+    top: -10px;
+    left: 15px;
+    background: white;
+    padding: 5px;
+    border-radius: 50%;
+    font-size: 1.2em;
+}
+
+.lesson-steps h4 {
+    color: #4A90E2 !important;
+    font-size: 1em !important;
+    margin: 0 0 10px 0 !important;
+    font-weight: 700 !important;
+}
+
+.lesson-progress {
+    margin-top: 20px;
+}
+
+.steps {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    gap: 15px;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.step-label {
+    font-size: 0.9em;
+    color: #4A90E2;
+    margin-bottom: 8px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.step-circle {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #FFD700;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9em;
+    color: #999;
+    background: white;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.step.completed .step-circle {
+    background: linear-gradient(45deg, #FF6B9D, #4ECDC4);
+    border-color: #4ECDC4;
+    color: white;
+    animation: celebration 0.6s ease-out;
+}
+
+@keyframes celebration {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+.progress-bar {
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid #FFD700;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(45deg, #FF6B9D, #4ECDC4, #98FB98);
+    transition: width 0.5s ease;
+}
+
+@keyframes shimmer {
+    0% { background-position: -100% 0; }
+    100% { background-position: 100% 0; }
+}
+
+.lesson-actions {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.lesson-btn {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 25px;
+    font-weight: 700;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 1.1em;
+    position: relative;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    border: 3px solid white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.start-btn {
+    background: linear-gradient(45deg, #4ECDC4, #44A08D);
+    color: white;
+}
+
+.start-btn::before {
+    content: '🚀 ';
+}
+
+.continue-btn {
+    background: linear-gradient(45deg, #FF8A80, #FF5722);
+    color: white;
+}
+
+.continue-btn::before {
+    content: '▶️ ';
+}
+
+.review-btn {
+    background: linear-gradient(45deg, #81C784, #4CAF50);
+    color: white;
+}
+
+.review-btn::before {
+    content: '🔄 ';
+}
+
+.locked-btn {
+    background: linear-gradient(45deg, #E0E0E0, #BDBDBD);
+    color: #666;
+    cursor: not-allowed;
+}
+
+.locked-btn::before {
+    content: '🔒 ';
+}
+
+.lesson-btn:hover:not(.locked-btn) {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    animation: wiggle 0.5s ease-in-out;
+}
+
+@keyframes wiggle {
+    0%, 100% { transform: translateY(-5px) scale(1.05) rotate(0deg); }
+    25% { transform: translateY(-5px) scale(1.05) rotate(1deg); }
+    75% { transform: translateY(-5px) scale(1.05) rotate(-1deg); }
+}
+
+.badge-indicator {
+    background: linear-gradient(45deg, #FFD700, #FFA500);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 1em;
+    font-weight: 700;
+    border: 3px solid white;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+}
+
+@keyframes trophy {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.lesson-card.locked {
+    opacity: 0.7;
+    filter: grayscale(50%);
+}
+
+.lesson-card.locked .lesson-title,
+.lesson-card.locked .lesson-description {
+    color: #999;
+}
+
+.legend {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 25px;
+    border: 3px solid #FFD700;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1em;
+    color: #4A90E2;
+    font-weight: 600;
+}
+
+.legend-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.legend-icon.not-started {
+    background: #E0E0E0;
+}
+
+.legend-icon.in-progress {
+    background: linear-gradient(45deg, #FF8A80, #FF5722);
+}
+
+.legend-icon.completed {
+    background: linear-gradient(45deg, #4ECDC4, #44A08D);
+}
+
+/* ===== FOCUS & ACCESSIBILITY ===== */
+.btn-primary:focus,
+.form-input:focus,
+.form-select:focus,
+.tab:focus,
+.next-button:focus,
+.tts-button:focus {
+    outline: 2px solid #4CAF50;
+    outline-offset: 2px;
+}
+
+/* ===== TABLET RESPONSIVE ===== */
+/* タブレット横向き対応 (768px以上を基準) */
+@media (min-width: 768px) {
+    .auth-container {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 40px;
+    }
+    
+    .form-group {
+        margin-bottom: 25px;
+    }
+    
+    .lessons-grid {
+        height: 450px;
+        gap: 40px;
+    }
+    
+    .lesson-card {
+        flex: 0 0 350px;
+        width: 350px;
+        height: 350px;
+    }
+    
+    .curriculum-container {
+        padding: 30px;
+    }
+}
+
+/* 大型タブレット・PC対応 */
+@media (min-width: 1024px) {
+    .auth-container {
+        max-width: 800px;
+        padding: 50px;
+    }
+    
+    .lessons-grid {
+        height: 500px;
+        gap: 50px;
+    }
+}
+
+/* 14インチMacBook Pro対応 - タイトル非表示、ロゴ左配置 */
+@media (max-width: 1440px) and (min-width: 1201px) {
+    header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 15px 30px;
+    }
+    
+    .header-top {
+        position: absolute;
+        left: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        margin-bottom: 0;
+        justify-content: flex-start;
+    }
+    
+    .logo-text {
+        display: none;
+    }
+    
+    .main-nav {
+        margin: 0;
+    }
+    
+    .user-info {
+        position: static;
+    }
+}
+
+/* iPad横向き対応 - ナビゲーション重複解消 */
+@media (max-width: 1200px) and (min-width: 769px) {
+    header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 25px 30px;
+    }
+    
+    .main-nav {
+        position: relative;
+        left: auto;
+        transform: none;
+        margin: 0;
+    }
+    
+    .main-nav .nav-link:nth-child(2),
+    .main-nav .nav-link:nth-child(3) {
+        margin: 0;
+    }
+    
+    .logo, .user-info {
+        flex-shrink: 0;
+    }
+}
+
+/* ===== FOOTER ===== */
+.main-footer {
+    background: transparent;
+    margin-top: 50px;
+    padding: 20px 0;
+    position: relative;
+    z-index: 3;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 0 20px;
+}
+
+.footer-content p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9em;
+    text-align: center;
+}
+
+/* ===== PRINT ===== */
+@media print {
+    .badge-modal,
+    .next-button,
+    .tts-button,
+    .main-footer {
+        display: none !important;
+    }
+    
+    body {
+        background: white;
+    }
+    
+    .lesson-container,
+    .auth-container {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
+
+/* モバイル用背景調整 */
+@media (max-width: 768px) {
+    body {
+        background-image: none !important;
+        background: var(--background) !important;
+    }
+    
+    /* モバイル時はヘッダーを通常幅に */
+    header {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+    
+    .container {
+        max-width: 100%;
+        padding: 10px;
+    }
+    
+    /* 子供情報をコンパクトに */
+    .child-info-top {
+        top: 10px;
+        right: 10px;
+        transform: scale(0.8);
+        transform-origin: top right;
+    }
+    
+    .user-details-top {
+        padding: 6px 12px;
+        gap: 4px;
+    }
+    
+    .user-info-row {
+        font-size: 0.8em;
+    }
+    
+    .button-row, .logout-row {
+        gap: 5px;
+    }
+    
+    .menu-return-btn-small, .logout-button {
+        padding: 4px 8px;
+        font-size: 0.7em;
+        border-radius: 12px;
+    }
+}
+
+/* スマホ縦画面専用 - 子供情報を隠す/最小化 */
+@media (max-width: 480px) and (orientation: portrait) {
+    .child-info-top {
+        position: fixed;
+        top: 5px;
+        right: 5px;
+        transform: scale(0.6);
+        transform-origin: top right;
+        z-index: 9999;
+    }
+    
+    /* 子供情報をさらにコンパクトに */
+    .user-details-top {
+        padding: 4px 8px;
+        border-radius: 15px;
+        background: rgba(255, 255, 255, 0.8);
+    }
+    
+    .user-info-row {
+        display: none; /* 名前と言語情報を隠す */
+    }
+    
+    .button-row, .logout-row {
+        flex-direction: row;
+        gap: 3px;
+    }
+    
+    .menu-return-btn-small, .logout-button {
+        padding: 3px 6px;
+        font-size: 0.6em;
+        border-radius: 8px;
+        min-width: auto;
+        white-space: nowrap;
+    }
+    
+    /* 言語切り替えタブも小さく */
+    .language-tabs-global {
+        top: 5px;
+        right: 120px;
+        transform: scale(0.7);
+        transform-origin: top right;
+    }
+}

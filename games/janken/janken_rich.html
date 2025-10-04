@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script src="js/jquery-2.1.3.min.js"></script>
+    <link rel="stylesheet" href="css/index.css" />
+    <title>じゃんけん</title>
+  </head>
+
+  <body>
+    <main>
+      <div class="score_display">
+        <span class="score_label">点数:</span>
+        <span id="current_score">0</span>
+        <span class="score_unit">点</span>
+      </div>
+      <h1>じゃんけん</h1>
+      <section id="play">
+       
+          <div class="play_area">
+            <div class="boy_wrap">
+                <div class="name">あなた</div>
+              <img id="boy_img" src="img_janken/boy_draw.png" alt="あなた">
+              <img id="boy_hand_img" src="" alt="あなたの手" />
+              <div class="user_text">あなたは「<span id="user_hands">なに？</span>」</div>
+            
+        </div>
+        <div class="judgement_wrap">
+            <div id="judgment" class="result"><span class="pon">ぽ　ん</span></div>
+
+            <div class="call">
+                <p class="call_text">どれかえらんでボタンをおそう！</p>
+              </div>
+              <div id="btn">
+                <div class="btn_area">
+                    <img class="janken_btn" id="gu_btn" src="img_janken/gu.png" alt="グー">
+                    <img class="janken_btn" id="cho_btn" src="img_janken/cyo.png" alt="チョキ">
+                    <img class="janken_btn" id="par_btn" src="img_janken/par.png" alt="パー">
+                  </div>
+                  <div id="score_message" style="display: none;"></div>
+              </div>
+        </div>
+
+        
+            <div class="pc_wrap">
+                <div class="name">ともだち</div>
+              <img id="girl_img" src="img_janken/girl_draw.png" alt="ともだち">
+              <img id="girl_hand_img" src="" alt="PCの手" />
+              <div class="pc_text">ともだちは「<span id="pc_hands">なに？</span>」</div>
+          
+        </div>
+        </div>
+        </div>
+      </section>
+
+      <!-- ルール説明エリア -->
+      <section id="rules" style="display: none;">
+        <div class="rules_container">
+          <div class="boy_rules">
+            <h3>じゃんけんって？</h3>
+            <div class="rule_item">
+              <img src="img_janken/gu.png" alt="グー" class="hand_icon">
+              <span class="equals">=</span>
+              <span class="stone">🪨 いし</span>
+            </div>
+            <div class="rule_item">
+              <img src="img_janken/cyo.png" alt="チョキ" class="hand_icon">
+              <span class="equals">=</span>
+              <span class="scissors">✂️ はさみ</span>
+            </div>
+            <div class="rule_item">
+              <img src="img_janken/par.png" alt="パー" class="hand_icon">
+              <span class="equals">=</span>
+              <span class="paper">📄 かみ</span>
+            </div>
+          </div>
+
+          <div class="girl_rules">
+            <h3>どっちがかつの？</h3>
+            <div class="win_rule">
+              <span class="stone">🪨 いし</span>
+              <span class="beats">は</span>
+              <span class="scissors">✂️ はさみ</span>
+              <span class="reason">をこわす</span>
+            </div>
+            <div class="win_rule">
+              <span class="scissors">✂️ はさみ</span>
+              <span class="beats">は</span>
+              <span class="paper">📄 かみ</span>
+              <span class="reason">をきる</span>
+            </div>
+            <div class="win_rule">
+              <span class="paper">📄 かみ</span>
+              <span class="beats">は</span>
+              <span class="stone">🪨 いし</span>
+              <span class="reason">をつつむ</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    <div class="return_btn">
+        <button onclick="location.href='index.html'" class="return_button">もどる</button>
+    </div>
+
+    <div class="help_btn">
+        <button id="help_button" class="help_button">あそびかた</button>
+    </div>
+    </main>
+    <script>
+      // 点数管理変数
+      let score = 0;
+
+      // 点数をローカルストレージから読み込み
+      function loadScore() {
+        const savedScore = localStorage.getItem('janken_score');
+        score = savedScore ? parseInt(savedScore) : 0;
+        updateScoreDisplay();
+      }
+
+      // 点数を保存
+      function saveScore() {
+        localStorage.setItem('janken_score', score.toString());
+      }
+
+      // 点数表示を更新
+      function updateScoreDisplay() {
+        $('#current_score').text(score);
+      }
+
+      // 点数を加算
+      function addScore(points) {
+        score += points;
+        updateScoreDisplay();
+        saveScore();
+      }
+
+      // あそびかたボタンのクリックイベント
+      $(document).ready(function() {
+        loadScore();
+        
+        // あそびかたボタンのクリック処理
+        $('#help_button').on('click', function() {
+          const $rules = $('#rules');
+          const $button = $(this);
+          
+          if ($rules.is(':visible')) {
+            $rules.slideUp(300);
+            $button.text('あそびかた');
+          } else {
+            $rules.slideDown(300);
+            $button.text('とじる');
+          }
+        });
+      });
+
+      $("#gu_btn, #cho_btn, #par_btn").on("click", function () {
+        //１。グー・チョキー・パーを「なに？」に表示させる
+        const r = Math.ceil(Math.random() * 3);
+        let pc_hands = "";
+        if (r === 1) {
+          pc_hands = "グー";
+          hand_img = "img_janken/gu.png";
+        }
+        if (r === 2) {
+          pc_hands = "チョキ";
+          hand_img = "img_janken/cyo.png";
+        }
+        if (r === 3) {
+          pc_hands = "パー";
+          hand_img = "img_janken/par.png";
+        }
+
+        $("#pc_hands").html(pc_hands);
+        $("#girl_hand_img").attr("src", hand_img).show();
+
+        //２。あなたが何を出したかを「なに？」に表示させる。
+        const u = $(this).attr("id");
+        let user_hands = "";
+
+        if (u === "gu_btn") {
+          user_hands = "グー";
+          hand_img = "img_janken/gu.png";
+        }
+        if (u === "cho_btn") {
+          user_hands = "チョキ";
+          hand_img = "img_janken/cyo.png";
+        }
+        if (u === "par_btn") {
+          user_hands = "パー";
+          hand_img = "img_janken/par.png";
+        }
+
+        $("#user_hands").html(user_hands);
+        $("#boy_hand_img").attr("src", hand_img).show();
+
+        //３。判定
+        // スコアメッセージを隠す
+        $("#score_message").hide();
+        
+        if (user_hands === pc_hands) {
+          $("#judgment").html("あいこ");
+          $("#boy_img").attr("src", "img_janken/boy_draw.png");
+          $("#girl_img").attr("src", "img_janken/girl_draw.png");
+
+        } else if (user_hands === "グー" && pc_hands === "チョキ") {
+          $("#judgment").html("あなたの<br>かち");
+          $("#boy_img").attr("src", "img_janken/boy_win.png");
+          $("#girl_img").attr("src", "img_janken/girl_lose.png");
+          $("#score_message").html("<span class='score_get'>1てんゲット！</span>").show();
+          addScore(1);
+
+        } else if (user_hands === "グー" && pc_hands === "パー") {
+          $("#judgment").html("あなたの<br>まけ");
+          $("#boy_img").attr("src", "img_janken/boy_lose.png");
+          $("#girl_img").attr("src", "img_janken/girl_win.png");
+
+        } else if (user_hands === "チョキ" && pc_hands === "パー") {
+          $("#judgment").html("あなたの<br>かち");
+          $("#boy_img").attr("src", "img_janken/boy_win.png");
+          $("#girl_img").attr("src", "img_janken/girl_lose.png");
+          $("#score_message").html("<span class='score_get'>1てんゲット！</span>").show();
+          addScore(1);
+
+        } else if (user_hands === "チョキ" && pc_hands === "グー") {
+          $("#judgment").html("あなたの<br>まけ");
+          $("#boy_img").attr("src", "img_janken/boy_lose.png");
+          $("#girl_img").attr("src", "img_janken/girl_win.png");
+
+        } else if (user_hands === "パー" && pc_hands === "グー") {
+          $("#judgment").html("あなたの<br>かち");
+          $("#boy_img").attr("src", "img_janken/boy_win.png");
+          $("#girl_img").attr("src", "img_janken/girl_lose.png");
+          $("#score_message").html("<span class='score_get'>1てんゲット！</span>").show();
+          addScore(1);
+
+        } else if (user_hands === "パー" && pc_hands === "チョキ") {
+          $("#judgment").html("あなたの<br>まけ");
+          $("#boy_img").attr("src", "img_janken/boy_lose.png");
+          $("#girl_img").attr("src", "img_janken/girl_win.png");
+
+        } else {
+          $("#judgment").html("");
+        }
+      });
+    </script>
+  </body>
+</html>

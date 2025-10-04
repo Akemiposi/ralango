@@ -1,0 +1,584 @@
+html {
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Meiryo UI", sans-serif;
+  margin: 0;
+  padding: 0;
+  height: 100%;/* 固定 */
+  overflow: hidden;/* 固定 */
+}
+body {
+  width: 100%;
+  height: 100%;/* 固定 */
+  overflow: hidden;/* 固定 */
+  margin: 0;
+  padding: 0;
+  background-color: #f8eeb6;
+}
+
+main {
+  width: 100%;
+  max-width: 1200px;
+  height: 100%;
+  min-height: 100vh;/* 固定 */
+
+  margin: 0 auto;
+  padding: 1vw 2vw;
+  box-sizing: border-box;
+}
+
+section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+.title_wrap {
+  display: flex;
+  justify-content: center;
+  margin: 2vw 0 1vw 0;
+}
+
+h1 {
+  font-size: 7vw;
+  font-weight: bold;
+  color: #333;
+  letter-spacing: 1rem;
+}
+
+.card_wrap img {
+  max-width: 90%;
+  max-height: 24vh;  /*これで高さギリギリ */
+  width: auto;
+  height: auto;
+  aspect-ratio: auto;   /* アスペクト比率は画像に任せる */
+  object-fit: contain;/* 固定 */
+  display: block;
+  margin: 0 auto;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 0.3vw;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+}
+.quiz {
+  margin: 2vw 0 3vw 0;
+  text-align: center;
+}
+
+.quiz p {
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  margin: 4% 0;
+  padding: 0;
+  line-height: 1.4;
+  font-weight: bold; /* 少し強調（任意） */
+}
+
+.question_word {
+  font-size: 6.5vw;
+  font-weight: bold;
+  color: #333;
+  letter-spacing: 1.5vw;
+}
+
+.question_word .hatena {
+  color: #fb5089; /* ピンク色 */
+}
+
+.select_area {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.select_area ul {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.select_area li {
+  flex: 1 1 calc(20% - 12px); /* 5列になるようにgap分引く */
+  max-width: 250px;
+  min-width: 80px;
+  border: 2px solid #ddd;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 0.2vw 0.2vw;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+  text-align: center;
+  font-size: 7vw;
+  /* font-family: "Noto Sans JP", "さわらび明朝", serif; */
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+.select_area li.active-choice {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  background-color: #f798b8;
+  color: #fff;
+}
+
+#judge_message {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(2rem, 6vw, 5rem);
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 2.5vw 4.5vw;
+  white-space: nowrap;
+  border-radius: 30px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: none;
+  text-align: center;
+}
+
+#judge_message.correct {
+  color: #fb5089;
+  border: 5px solid #fb5089;
+}
+
+#judge_message.incorrect {
+  color: #555;
+  border: 5px solid #aaa;
+}
+
+.score_display {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #fb5089;
+  border-radius: 12px;
+  padding: 8px 16px;
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #fb5089;
+  z-index: 1001;
+}
+
+.score_display #current_score {
+  color: #ff4081;
+  font-size: 2rem;
+  margin: 0 4px;
+}
+
+.return_btn {
+  position: fixed;
+  top: 10px;
+  right: 20px;
+  z-index: 1002;
+}
+
+.return_button {
+  background-color: #fb5089; 
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Meiryo UI", sans-serif;
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 900;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.return_button:hover {
+  background-color: #e91e63;
+  transform: scale(1.05);
+}
+
+.menu_buttons {
+  position: fixed;
+  top: calc(60px + 1vh); /* 1%下げる */
+  right: 20px;
+  bottom: 100px; /* あそびかたボタンの上までの空間を確保 */
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE */
+  padding-bottom: 10px; /* 下部に少し余白を追加 */
+}
+
+.menu_buttons::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.menu_btn {
+  background: white;
+  border: 2px solid #fb5089;
+  border-radius: 25px;
+  padding: 8px 16px;
+  font-size: 1.4rem;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Meiryo UI", sans-serif;
+  color: #fb5089;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  min-width: 70px;
+}
+
+.menu_btn:hover {
+  background-color: #fb5089;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(251, 80, 137, 0.3);
+}
+
+.menu_btn.active {
+  background-color: #fb5089;
+  color: white;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(251, 80, 137, 0.4);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* 選択肢のスタイル */
+.select_choices {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+}
+
+.select_choices li {
+  flex: 1 1 calc(20% - 12px);
+  max-width: 250px;
+  min-width: 80px;
+  border: 2px solid #ddd;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 0.2vw 0.2vw;
+  background-color: #fff;
+  box-sizing: border-box;
+  transition: transform 0.2s ease;
+  text-align: center;
+  font-size: 7vw;
+  font-weight: bold;
+  line-height: 1.5;
+  cursor: pointer;
+  pointer-events: auto;
+  user-select: none;
+}
+
+.select_choices li:hover {
+  background: #f0f8ff;
+  border-color: #4CAF50;
+  transform: scale(1.05);
+}
+
+.select_choices li.active-choice {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  background-color: #f798b8;
+  color: #fff;
+}
+
+.box2_1 {
+  background: #fff;
+  border: 3px solid #ddd;
+  border-radius: 15px;
+  padding: 15px 20px;
+  font-size: 2em;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 60px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  pointer-events: auto;
+  user-select: none;
+}
+
+.box2_1:hover {
+  background: #f0f8ff;
+  border-color: #4CAF50;
+  transform: scale(1.05);
+}
+
+.box2_1.active-choice {
+  background: #4CAF50;
+  color: white;
+  border-color: #45a049;
+}
+
+.menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 1.6rem;
+  border-bottom: 1px solid #eee;
+}
+
+.menu li:last-child {
+  border-bottom: none;
+}
+
+.menu li:hover {
+  background-color: #f0f0f0;
+}
+
+.menu li.active {
+  background-color: #fb5089;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+}
+
+/* あそびかたボタン */
+.help_btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1002;
+}
+
+.help_button {
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 25px;
+  font-size: 1.3rem;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Meiryo UI", sans-serif;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 900;
+  min-width: 100px;
+}
+
+.help_button:hover {
+  background-color: #45a049;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* ルール説明セクション */
+#rules {
+  position: fixed;
+  top: 0;
+  right: -400px; /* 最初は画面外に隠す */
+  width: 380px;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+  z-index: 1003;
+  transition: right 0.4s ease-in-out;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+}
+
+#rules.show {
+  right: 0; /* 表示時は画面内に */
+}
+
+.rules_container {
+  padding: 80px 20px 20px 20px;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.kana_rules {
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  width: 100%;
+}
+
+.kana_rules h3 {
+  font-size: 2.2rem;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #fb5089;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Meiryo UI", sans-serif;
+  font-weight: bold;
+  border-bottom: 3px solid #fb5089;
+  padding-bottom: 15px;
+}
+
+.rule_item {
+  display: flex;
+  align-items: flex-start;
+  margin: 25px 0;
+  font-size: 1.3rem;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic UI", "Meiryo UI", sans-serif;
+  line-height: 1.7;
+  background: rgba(251, 80, 137, 0.05);
+  padding: 20px;
+  border-radius: 15px;
+  border-left: 5px solid #fb5089;
+}
+
+.step_number {
+  background: #fb5089;
+  color: white;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 18px;
+  flex-shrink: 0;
+  font-size: 1.1rem;
+}
+
+.rule_text {
+  color: #333;
+  font-weight: 600;
+}
+
+/* 閉じるボタン */
+.close_btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #fb5089;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close_btn:hover {
+  background: #e91e63;
+  transform: scale(1.1);
+}
+
+/* スマホ横画面対応 */
+@media (max-width: 1024px) and (orientation: landscape) {
+  /* メイン部分の調整 */
+  main {
+    padding: 0.5vw 1vw;
+  }
+  
+  h1 {
+    font-size: 4vw;
+  }
+  
+  .title_wrap {
+    margin: 1vw 0;
+  }
+  
+  /* カード画像のサイズ調整 */
+  .card_wrap img {
+    max-height: 18vh; /* 横画面用に高さを調整 */
+    max-width: 85%;
+  }
+  
+  /* 選択肢エリアの調整 */
+  .select_choices {
+    gap: 1.5vw;
+    margin: 1vh 0;
+  }
+  
+  .box2_1 {
+    width: 8vw;
+    height: 8vw;
+    min-width: 50px;
+    min-height: 50px;
+    font-size: 3vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* メニューボタンのサイズ調整 */
+  .menu_btn {
+    padding: 6px 12px;
+    font-size: 1.2rem;
+    min-width: 60px;
+  }
+  
+  .menu_buttons {
+    gap: 6px;
+    top: 50px;
+    right: 15px;
+    bottom: 80px; /* 横画面用にあそびかたボタンとの間隔を調整 */
+  }
+  
+  .return_btn {
+    right: 15px;
+  }
+  
+  /* あそびかたボタン */
+  .help_btn {
+    bottom: 15px;
+    right: 15px;
+  }
+  
+  .help_button {
+    padding: 12px 20px;
+    font-size: 1.1rem;
+  }
+}
+
+/* スマホサイズ対応 */
+@media (max-width: 768px) {
+  #rules {
+    width: 100vw;
+    right: -100vw;
+  }
+  
+  .rules_container {
+    padding: 100px 15px 20px 15px;
+  }
+  
+  .rule_item {
+    font-size: 1.2rem;
+    margin: 20px 0;
+    padding: 15px;
+  }
+  
+  .step_number {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,259 @@
+/* assets/css/auth.css */
+/* 認証画面専用スタイル */
+
+.auth-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+    animation: slideInUp 0.5s ease;
+}
+
+.auth-title {
+    text-align: center;
+    color: #4CAF50;
+    margin-bottom: 30px;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.auth-container .btn-primary {
+    width: 100%;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.auth-links {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.auth-links a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.auth-links a:hover {
+    color: #45a049;
+    text-decoration: underline;
+}
+
+.test-account {
+    margin-top: 20px;
+    padding: 15px;
+    background: #e3f2fd;
+    border-radius: 8px;
+    border-left: 4px solid #2196F3;
+}
+
+.test-account-title {
+    text-align: center;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #1976D2;
+}
+
+.test-account-info {
+    text-align: center;
+    font-size: 0.9em;
+    color: #1976D2;
+    line-height: 1.6;
+}
+
+.divider {
+    text-align: center;
+    margin: 20px 0;
+    position: relative;
+    color: #666;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: #e0e0e0;
+    z-index: 1;
+}
+
+.divider span {
+    background: white;
+    padding: 0 15px;
+    position: relative;
+    z-index: 2;
+}
+
+/* パスワード強度インジケーター */
+.password-strength {
+    margin-top: 5px;
+    height: 4px;
+    background: #e0e0e0;
+    border-radius: 2px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.password-strength-fill {
+    height: 100%;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.strength-weak .password-strength-fill {
+    width: 33%;
+    background: #f44336;
+}
+
+.strength-medium .password-strength-fill {
+    width: 66%;
+    background: #ff9800;
+}
+
+.strength-strong .password-strength-fill {
+    width: 100%;
+    background: #4CAF50;
+}
+
+.password-requirements {
+    margin-top: 10px;
+    font-size: 0.8em;
+    color: #666;
+}
+
+.requirement {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 2px;
+}
+
+.requirement-icon {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #e0e0e0;
+    transition: background 0.3s ease;
+}
+
+.requirement.met .requirement-icon {
+    background: #4CAF50;
+}
+
+/* フォーカス状態の強化 */
+.auth-container .form-input:focus {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(76,175,80,0.2);
+}
+
+/* エラー状態 */
+.form-input.error {
+    border-color: #f44336;
+    background: #ffebee;
+}
+
+.form-input.error:focus {
+    box-shadow: 0 0 10px rgba(244,67,54,0.2);
+}
+
+/* 成功状態 */
+.form-input.success {
+    border-color: #4CAF50;
+    background: #f1f8e9;
+}
+
+/* ローディング状態 */
+.btn-loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top: 2px solid white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* レスポンシブ */
+@media (max-width: 768px) {
+    .auth-container {
+        margin: 30px auto;
+        padding: 30px 25px;
+        max-width: 350px;
+    }
+    
+    .auth-title {
+        font-size: 1.8em;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-container {
+        margin: 20px auto;
+        padding: 25px 20px;
+        max-width: 320px;
+        border-radius: 15px;
+    }
+    
+    .auth-title {
+        font-size: 1.6em;
+        margin-bottom: 25px;
+    }
+    
+    .test-account {
+        font-size: 0.8em;
+    }
+}
+
+/* ダークモード対応（将来的な機能） */
+@media (prefers-color-scheme: dark) {
+    .auth-container {
+        background: #2d2d2d;
+        color: #f0f0f0;
+    }
+    
+    .auth-title {
+        color: #66bb6a;
+    }
+    
+    .form-input, .form-select {
+        background: #404040;
+        border-color: #555;
+        color: #f0f0f0;
+    }
+    
+    .form-input:focus, .form-select:focus {
+        border-color: #66bb6a;
+        background: #4a4a4a;
+    }
+    
+    .test-account {
+        background: #1e3a5f;
+        border-left-color: #42a5f5;
+    }
+    
+    .test-account-title,
+    .test-account-info {
+        color: #90caf9;
+    }
+}
